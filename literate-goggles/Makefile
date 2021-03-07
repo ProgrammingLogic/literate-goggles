@@ -15,7 +15,10 @@ HEADERS := $(shell find $(SOURCEDIR) -name '*.h')
 NAME = LiterateGoggles
 BINARY = $(NAME).bin
 
-.PHONY: all clean setup
+.PHONY: all clean setup debug
+
+debug: $(BUILDDIR)
+	$(CC) -g $(HEADERS) $(SOURCES) $(CFLAGS) $(LDFLAGS) -o $(NAME) 
 
 all: $(BINARY)
 
