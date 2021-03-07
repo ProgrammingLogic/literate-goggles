@@ -1,13 +1,33 @@
+OS = Linux
+
+VERSION = 0.0.1
+CC = /usr/bin/g++
 CFLAGS = -std=c++17 -O2
-LDFLAGS = -lglfw -lvulkan -ldl -lpthread -lX11 -lXxf86vm -lXrandr -lXi
+LDFLAGS = -lglfw -lGL -lvulkan -ldl -lpthread -lX11 -lXxf86vm -lXrandr -lXi -lm -lpthread -lXrandr -ldl
 
-LiterateGogglesTest: main.cpp
-	g++ $(CFLAGS) -o LiterateGogglesTest main.cpp $(LDFLAGS)
+BUILDDIR = build
+SOURCEDIR = src
+HEADERDIR = src
 
-.PHONY: test clean
+SOURCES := $(shell find $(SOURCEDIR) -name '*.cpp')
+HEADERS := $(shell find $(SOURCEDIR) -name '*.h')
 
-test: LiterateGogglesTest
-	./LiterateGogglesTest
+NAME = LiterateGoggles
+BINARY = $(NAME).bin
+
+.PHONY: all clean setup
+
+all: $(BINARY)
+
+$(BINARY): $(BUILDDIR) 
+	$(CC) $(HEADERS) $(SOURCES) $(CFLAGS) $(LDFLAGS) -o $(NAME) 
+
+$(BUILDDIR):
+	mkdir $(BUILDDIR)
 
 clean:
-	rm -f LiterateGogglesTest
+	rm -f $(BINARY)
+	rm -f $(NAME)
+	rm -rf $(BUILDDIR)
+
+
