@@ -5,18 +5,31 @@
 #include <iostream>
 #include <stdexcept>
 #include <cstdlib>
+#include <vector>
 
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
 class HelloTriangleApplication {
 	private:
-		GLFWwindow* window;
 		
 		const uint32_t WIDTH = 800;
 		const uint32_t HEIGHT = 800;
 
+		const std::vector<const char*> validationLayers = {
+			"VK_LAYER_KHRONOS_validation"
+		};
+
+#ifdef NDEBUG
+		const bool enableValidationLayers = false;
+#else
+		const bool enableValidationLayers = true;
+#endif 
+
+		GLFWwindow* window;
 		VkInstance instance;
+
+		bool checkValidationLayerSupport();
 
 		void initVulkan();
 		void initWindow();
@@ -24,6 +37,7 @@ class HelloTriangleApplication {
 		void mainLoop();
 		void cleanup();
 
+	
 	public:
 		HelloTriangleApplication();
 		void run();

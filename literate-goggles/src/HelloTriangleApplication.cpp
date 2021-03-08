@@ -12,6 +12,10 @@ HelloTriangleApplication::HelloTriangleApplication() {
 
 };
 
+bool HelloTriangleApplication::checkValidationLayerSupport() {
+	
+};
+
 void HelloTriangleApplication::run() {
 	initWindow();
 	initVulkan();
